@@ -7,8 +7,10 @@ class DetectModel {
  
 
     public async   loadDetectionModel(): Promise<void> {
-    console.log('Loading model...');
+    console.log('Loading Model...');
     this.mymodel = await cocoSsd.load({ base: "mobilenet_v2" });
+    console.log('Model Loaded.');
+
   }
 
   public async detect(imageBuffer:   
