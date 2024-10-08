@@ -8,6 +8,8 @@
 */
 
 const UsersController = () => import('#controllers/users_controller')
+const ImagesController = () => import('#controllers/images_controller')
+
 import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
@@ -25,8 +27,16 @@ router.group(() => {
   })));
   router.post("/setUserName",[UsersController, "setUserName"]).use((middleware.auth({
     guards: ['api']
-  }))
-);
+  })));
+
+  router.post("/refresh-token",[UsersController, "index"]).use((middleware.auth({
+    guards: ['api_refresh']
+  })));
+
+  router.post("/predict",[ImagesController, "predict"]).use((middleware.auth({
+    guards: ['api']
+  })));
+
 
 
 

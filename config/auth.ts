@@ -12,7 +12,13 @@ const authConfig = defineConfig({
       }),
       
     }),
-    
+    api_refresh : tokensGuard({
+      provider: tokensUserProvider({
+        tokens: 'refreshTokens',
+        model: () => import('#models/user')
+      }),
+      
+    }),
   },
 })
 

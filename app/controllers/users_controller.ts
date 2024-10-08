@@ -4,7 +4,6 @@ import { signUpValidator } from '#validators/sign_up'
 
 import User from '#models/user'
 import { Exception } from '@adonisjs/core/exceptions'
-import { log } from 'console'
 
 
 export default class UsersController {
@@ -28,6 +27,16 @@ export default class UsersController {
 
       public async index(httpContext:HttpContext){
         return httpContext.auth.user;
+      }
+
+
+      public async refresh(httpContext:HttpContext){
+          const user =httpContext.auth.user;
+          if(user){
+            User.accessTokens.create(user); 
+            return await User.accessTokens.create(user);
+          }
+          return {};
       }
 
       public async setUserName(httpContext:HttpContext){

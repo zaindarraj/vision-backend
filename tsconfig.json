@@ -3,5 +3,11 @@
   "compilerOptions": {
     "rootDir": "./",
     "outDir": "./build"
-  }
+    
+  },
+  "strictPropertyInitialization": false,
+
+  "skipLibCheck": true,
+  "allowJs": true
+  
 }
