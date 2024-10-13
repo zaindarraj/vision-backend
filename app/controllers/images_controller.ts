@@ -41,13 +41,12 @@ export default class ImagesController {
             await imageModel.save()
             const data = this.fileToUint8Array(`storage/uploads/${image_name}`)
             if(data){
-               var dos:DetectedObject[]  =   await  model.detect(data)
-               console.log(dos)
-               dos.forEach((os)=>{
-                    imagePredictions.push(os.class)
-               })
-           }
-           return imagePredictions;
+              var dos:DetectedObject[]  =   await  model.detect(data)
+              console.log(dos)
+              dos.forEach((os)=>{
+                   imagePredictions.push(os.class)
+              })           }
+           return {"detectedObjects" : imagePredictions};
         }
 
             return {"code": -1, "message" : "Something went wrong"}

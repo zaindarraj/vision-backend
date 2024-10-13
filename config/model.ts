@@ -7,15 +7,25 @@ class DetectModel {
  
 
     public async   loadDetectionModel(): Promise<void> {
-    console.log('Loading Model...');
-    this.mymodel = await cocoSsd.load({ base: "mobilenet_v2" });
-    console.log('Model Loaded.');
+    let shouldRetry:boolean  = true;
+    while(shouldRetry){
+      try{
+        this.mymodel = await cocoSsd.load({ base: "mobilenet_v2" });
+        shouldRetry = false;
+      }catch(error){
+        console.log(error)
+
+      }
+
+
+
+    }
 
   }
 
   public async detect(imageBuffer:   
       Uint8Array): Promise<cocoSsd.DetectedObject[]> {
-    const decodedImage = await tf.node.decodeJpeg(imageBuffer);
+    const decodedImage =  tf.node.decodeJpeg(imageBuffer);
     const prediction = await this.mymodel.detect(decodedImage);
     return prediction;
   }
