@@ -4,6 +4,11 @@ import * as cocoSsd from '@tensorflow-models/coco-ssd';
 class DetectModel {
   private mymodel!: cocoSsd.ObjectDetection;
 
+  constructor(){
+
+    
+
+  }
  
 
     public async   loadDetectionModel(): Promise<void> {
@@ -34,7 +39,5 @@ class DetectModel {
 
 
 let model:DetectModel = new DetectModel();
-await model.loadDetectionModel();
-
+//await model.loadDetectionModel()
 export default model;
-

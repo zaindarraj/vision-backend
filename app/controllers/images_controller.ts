@@ -1,13 +1,14 @@
 import model from '#config/model'
+import Alert from '#models/alert'
 import Image from '#models/image'
+import User from '#models/user'
 import { cuid } from '@adonisjs/core/helpers'
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
-import { DetectedObject } from '@tensorflow-models/coco-ssd'
-import fs from 'node:fs'
+import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import fs from 'node:fs';
 
 export default class ImagesController {
-    
 
     ImageController(){
     }
@@ -24,6 +25,8 @@ export default class ImagesController {
       }
       
     public async predict(httpContext:HttpContext) {
+    
+
      
 
         const image = httpContext.request.file('image', {
@@ -40,12 +43,22 @@ export default class ImagesController {
             const imageModel:Image = await Image.create({image_name:image_name})
             await imageModel.save()
             const data = this.fileToUint8Array(`storage/uploads/${image_name}`)
+            let alert:string = "There is, ";
             if(data){
-              var dos:DetectedObject[]  =   await  model.detect(data)
+              var dos:cocoSsd.DetectedObject[]  =   await  model.detect(data)
               console.log(dos)
               dos.forEach((os)=>{
                    imagePredictions.push(os.class)
-              })           }
+                   alert = alert + os.class +";"
+                   
+              })           }else{
+                alert = alert + "none";
+              }
+
+            const user:User =   httpContext.auth.user!;
+
+
+           (await user.related("alerts").create({alert : alert, imageUrl : `storage/uploads/${image_name}`})).save();
            return {"detectedObjects" : imagePredictions};
         }
 
