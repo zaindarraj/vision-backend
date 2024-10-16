@@ -1,5 +1,4 @@
 import model from '#config/model'
-import Alert from '#models/alert'
 import Image from '#models/image'
 import User from '#models/user'
 import { cuid } from '@adonisjs/core/helpers'

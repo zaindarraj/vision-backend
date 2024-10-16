@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
-import { column, BaseModel, hasOne , belongsTo} from '@adonisjs/lucid/orm'
+import { column, BaseModel , belongsTo} from '@adonisjs/lucid/orm'
 import User from './user.js'
-import type { BelongsTo, HasOne } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 
 export default class Alert extends BaseModel {
   @column({ isPrimary: true })
