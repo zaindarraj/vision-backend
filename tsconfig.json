@@ -8,6 +8,12 @@
   "strictPropertyInitialization": false,
 
   "skipLibCheck": true,
-  "allowJs": true
-  
+  "ts-node": {
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "ESNext",
+      "esModuleInterop": true
+    },
+    "esm": true // <--- this is the most important part
+  },  
 }
