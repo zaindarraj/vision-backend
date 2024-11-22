@@ -40,5 +40,5 @@ class DetectModel {
 
 
 let model:DetectModel = new DetectModel();
-await model.loadDetectionModel()
+//await model.loadDetectionModel()
 export default model;
