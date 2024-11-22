@@ -31,7 +31,7 @@ class DetectModel {
   public async detect(imageBuffer:   
       Uint8Array): Promise<cocoSsd.DetectedObject[]> {
     const decodedImage =  tf.node.decodeJpeg(imageBuffer);
-    tf.dispose();
+    //tf.dispose();
     const prediction = await this.mymodel.detect(decodedImage);
     return prediction;
   }
