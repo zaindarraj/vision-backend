@@ -2,7 +2,7 @@
 
 
 # All deps stage
-FROM  node:current-slim as base
+FROM  node:22.0-slim as base
 
 WORKDIR /app
 COPY . .

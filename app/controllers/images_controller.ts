@@ -45,19 +45,26 @@ export default class ImagesController {
             let alert:string = "There is, ";
             if(data){
               var dos:cocoSsd.DetectedObject[]  =   await  model.detect(data)
-              console.log(dos)
-              dos.forEach((os)=>{
-                   imagePredictions.push(os.class)
-                   alert = alert + os.class +";"
-                   
-              })           }else{
+              if(dos.length > 0){
+                console.log(dos)
+                dos.forEach((os)=>{
+                     imagePredictions.push(os.class)
+                     alert = alert + os.class +";"
+                     
+                })  
+              }else{
                 alert = alert + "none";
+
               }
 
-            const user:User =   httpContext.auth.user!;
+              const user:User =   httpContext.auth.user!;
 
 
-           (await user.related("alerts").create({alert : alert, imageUrl : `storage/uploads/${image_name}`})).save();
+              (await user.related("alerts").create({alert : alert, imageUrl : `storage/uploads/${image_name}`})).save();
+                    }else{
+              }
+
+          
            return {"detectedObjects" : imagePredictions};
         }
 
